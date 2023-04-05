@@ -5,7 +5,7 @@
 const std::string TEST_NAME = "temperature";
 const std::string TEST_FLAG = "t";
 const std::string TEST_DESCRIPTION = "temperature in degrees celsius";
-const float TEST_VALUE = 100.0f;
+const float TEST_VALUE = 100.23f;
 const std::string EMPTY_STRING = " ";
 const std::string CHARACTER_STRING = "a";
 

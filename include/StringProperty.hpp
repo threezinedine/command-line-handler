@@ -18,5 +18,6 @@ namespace TTC {
                 : Property(name, flag, description) {};
             void fromString(std::string value) override { this->value = value; };
             std::string getValue() { return value; }
+            PropertyType getType() override { return PropertyType::STRING; }
     };
 }

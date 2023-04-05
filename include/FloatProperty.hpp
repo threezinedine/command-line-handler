@@ -17,5 +17,6 @@ namespace TTC {
                 : Property(name, flag, description) {};
             float getValue() { return value; }
             void fromString(std::string value) override;
+            PropertyType getType() override { return PropertyType::FLOAT; }
     };
 }
