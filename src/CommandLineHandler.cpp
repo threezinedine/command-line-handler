@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include "utils.hpp"
 #include "IProperty.hpp"
 #include "IntegerProperty.hpp"
 #include "FloatProperty.hpp"
@@ -8,6 +9,11 @@
 #include "CommandLineHandler.hpp"
 
 namespace TTC {
+    CommandLineHandler::CommandLineHandler(int argc, char** argv)
+        : argc(argc) {
+        this->argv = convertCharArrayToVector(argc, argv);
+    }
+
     void CommandLineHandler::addProperty(std::shared_ptr<IProperty> property) {
         properties.push_back(property);
     }

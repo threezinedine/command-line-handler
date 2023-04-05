@@ -2,6 +2,8 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include "CommandLine.h"
+#include "utils.hpp"
 #include "IProperty.hpp"
 #include "PropertyType.hpp"
 
@@ -17,6 +19,7 @@ namespace TTC {
         public:
             CommandLineHandler(int argc, std::vector<std::string> argv)
                 : argc(argc), argv(argv) {};
+            CommandLineHandler(int argc, char** argv);
             void addProperty(std::shared_ptr<IProperty> property);
             PropertyType getPropertyType(std::string name);
             void parse();
