@@ -1,7 +1,6 @@
 #pragma once 
 #include <string>
 #include "IProperty.hpp"
-#include "PropertyType.hpp"
 
 
 namespace TTC
@@ -21,6 +20,5 @@ namespace TTC
             std::string getName() override { return name; }
             bool checkFlag(std::string flag) override;
             virtual void fromString(std::string value) = 0;
-            virtual PropertyType getType() = 0;
     };
 }

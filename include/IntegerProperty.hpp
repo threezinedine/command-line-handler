@@ -19,6 +19,8 @@ namespace TTC {
                 : Property(name, flag, description){};
             void fromString(std::string value) override;
             int getValue() { return value; }
-            PropertyType getType() override { return PropertyType::INTEGER; }
     };
 }
+
+#define GET_INT_VAL(handler, name) (std::dynamic_pointer_cast<TTC::IntegerProperty>(handler.getProperty(std::string(name))))->getValue()
+

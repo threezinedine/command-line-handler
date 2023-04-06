@@ -1,40 +1,22 @@
 #include <iostream>
 #include <string>
 #include "PropertyFactory.hpp"
-#include "PropertyType.hpp"
+#include "PropertyInclude.hpp"
 #include "CommandLineHandler.hpp"
 
 
 int main(int argc, char** argv) {
-    std::cout << "CommandLine Hanlder Version: " << VERSION << std::endl;
-    TTC::CommandLineHandler handler(argc, argv);
-    handler.addProperty(
-        TTC::PropertyFactory().create(
-            TTC::PropertyType::INTEGER, 
-            "money", 
-            "m", 
-            "Integer property"
-        )
-    );
-    handler.addProperty(
-        TTC::PropertyFactory().create(
-            TTC::PropertyType::FLOAT, 
-            "credit", 
-            "c", 
-            "Float property"
-        )
-    );
-    handler.addProperty(
-        TTC::PropertyFactory().create(
-            TTC::PropertyType::STRING, 
-            "name", 
-            "n", 
-            "String property"
-        )
-    );
-    handler.parse();
-    std::cout << "Money: " << handler.getIntegerPropertyValue("money") << std::endl;
-    std::cout << "Credit: " << handler.getFloatPropertyValue("credit") << std::endl;
-    std::cout << "Name: " << handler.getStringPropertyValue("name") << std::endl;
+    DEFINE_COMMANDLINE_DATA(
+        PROPERTY_3,
+        argc,
+        argv,
+        int, money, "m", "Integer property", GET_INT_VAL,
+        float, credit, "c", "Float property", GET_FLOAT_VAL,
+        std::string, name, "n", "String property", GET_STRING_VAL,
+    )
+
+    std::cout << "Money: " << DATA_VARIABLE.money << std::endl;
+    std::cout << "Credit: " << DATA_VARIABLE.credit << std::endl;
+    std::cout << "Name: " << DATA_VARIABLE.name << std::endl;
     return 0;
 }

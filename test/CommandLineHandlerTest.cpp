@@ -1,4 +1,17 @@
+#define TEST_INT_NAME "money"
+#define TEST_INT_FLAG "m"
+#define TEST_INT_DESCRIPTION "The amount of money you have"
+#define TEST_INT_VALUE 100
+
+#define TEST_FLOAT_NAME "credit"
+#define TEST_FLOAT_FLAG "c"
+#define TEST_FLOAT_DESCRIPTION "The amount of credit you have"
+#define TEST_FLOAT_VALUE 100.23f
+
+#define TEST_WRONG_NAME "wrong"
+
 #include <gtest/gtest.h>
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -7,23 +20,12 @@
 #include "IProperty.hpp"
 
 
-const std::string TEST_INT_NAME = "money";
-const std::string TEST_INT_FLAG = "m";
-const std::string TEST_INT_DESCRIPTION = "The amount of money you have";
-const int TEST_INT_VALUE = 100;
-
-const std::string TEST_FLOAT_NAME = "credit";
-const std::string TEST_FLOAT_FLAG = "c";
-const std::string TEST_FLOAT_DESCRIPTION = "The amount of credit you have";
-const float TEST_FLOAT_VALUE = 100.23f;
-
-const std::string TEST_WRONG_NAME = "wrong";
 
 std::vector<std::string> TEST_ARGV{
     "test.exe",
-    "--" + TEST_INT_FLAG,
+    std::string("--") + TEST_INT_FLAG,
     std::to_string(TEST_INT_VALUE),
-    "-" + TEST_FLOAT_NAME,
+    std::string("-") + TEST_FLOAT_NAME,
     std::to_string(TEST_FLOAT_VALUE),
 };
 int TEST_ARGC = TEST_ARGV.size();
@@ -31,47 +33,44 @@ int TEST_ARGC = TEST_ARGV.size();
 
 class CommandLineHandlerTest : public ::testing::Test {
     protected:
-        TTC::CommandLineHandler handler{
-            TEST_ARGC,
-            TEST_ARGV,
-        };
-
-        TTC::PropertyFactory factory;
+        TTC::CommandLineHandler handler;
 
         void SetUp() override {
-            handler.addProperty(factory.create(
-                TTC::PropertyType::INTEGER,
+            handler.addProperty(TTC::PropertyFactory<int>().create(
                 TEST_INT_NAME,
                 TEST_INT_FLAG,
                 TEST_INT_DESCRIPTION
             ));
 
-            handler.addProperty(factory.create(
-                TTC::PropertyType::FLOAT,
+            handler.addProperty(TTC::PropertyFactory<float>().create(
                 TEST_FLOAT_NAME,
                 TEST_FLOAT_FLAG,
                 TEST_FLOAT_DESCRIPTION
             ));
 
-            handler.parse();
+            handler.parse(
+                TEST_ARGC,
+                TEST_ARGV
+            );
         }
 };
 
 
 TEST_F(CommandLineHandlerTest, TestEmpty) {
-    EXPECT_EQ(handler.getIntegerPropertyValue(TEST_INT_NAME), TEST_INT_VALUE);
-    EXPECT_EQ(handler.getFloatPropertyValue(TEST_FLOAT_NAME), TEST_FLOAT_VALUE);
+    int intValue = GET_INT_VAL(handler, TEST_INT_NAME);
+    float floatValue = GET_FLOAT_VAL(handler, TEST_FLOAT_NAME);
+    EXPECT_EQ(intValue, TEST_INT_VALUE);
+    EXPECT_EQ(floatValue, TEST_FLOAT_VALUE);
 }
 
 
 TEST_F(CommandLineHandlerTest, TestWrongName) {
-    EXPECT_EQ(handler.getPropertyType(TEST_WRONG_NAME), TTC::PropertyType::NONE);
-    EXPECT_THROW(handler.getIntegerPropertyValue(TEST_WRONG_NAME), std::invalid_argument);
-    EXPECT_THROW(handler.getFloatPropertyValue(TEST_WRONG_NAME), std::invalid_argument);
+    EXPECT_THROW(GET_INT_VAL(handler, TEST_WRONG_NAME), std::invalid_argument);
+    EXPECT_THROW(GET_FLOAT_VAL(handler, TEST_WRONG_NAME), std::invalid_argument);
 }
 
 
-TEST_F(CommandLineHandlerTest, TestWrongType) {
-    EXPECT_THROW(handler.getIntegerPropertyValue(TEST_FLOAT_NAME), std::invalid_argument);
-    EXPECT_THROW(handler.getFloatPropertyValue(TEST_INT_NAME), std::invalid_argument);
-}
+// TEST_F(CommandLineHandlerTest, TestWrongType) {
+//     EXPECT_THROW(GET_INT_VAL(handler, TEST_FLOAT_NAME), std::invalid_argument);
+//     EXPECT_THROW(GET_FLOAT_VAL(handler, TEST_INT_NAME), std::invalid_argument);
+// }

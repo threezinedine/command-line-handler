@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24.1)
 
-project(CommandLine VERSION 1.0.0)
+project(CommandLine VERSION 1.1.0)
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/CommandLine.h.in
