@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
-#include "PropertyFactory.hpp"
-#include "PropertyInclude.hpp"
-#include "CommandLineHandler.hpp"
+#include "CommandLine.h"
 
 
 int main(int argc, char** argv) {

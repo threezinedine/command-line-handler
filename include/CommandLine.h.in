@@ -5,3 +5,8 @@
 #define COMMANDLINE_VERSION_PATCH @CommandLine_VERSION_PATCH@
 
 #define VERSION COMMANDLINE_VERSION_MAJOR << "." << COMMANDLINE_VERSION_MINOR << "." << COMMANDLINE_VERSION_PATCH
+
+#include "IProperty.hpp"
+#include "PropertyFactory.hpp"
+#include "PropertyInclude.hpp"
+#include "CommandLineHandler.hpp"
