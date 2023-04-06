@@ -93,12 +93,11 @@ The `argc` and `argv` are the arguments of the `main` function.
 
 The `int, money, "m", "Integer property", GET_INT_VAL` is the property definition.
 
-Whereas:
-    * `int` is the type of the property.
-    * `money` is the name of the property(not string), which is sent in the command line with the syntax `-money`.
-    * `"m"` is the short name of the property which is sent in the commandline with the syntax `--m`.
-    * `"Integer property"` is the description of the property.
-    * `GET_INT_VAL` is the function which is used to get the value of the property (there are 3 options `GET_STRING_VAL`, `GET_INT_VAL`, `GET_FLOAT_VAL`, so on).
+- `int` is the type of the property.
+- `money` is the name of the property(not string), which is sent in the command line with the syntax `-money`.
+- `"m"` is the short name of the property which is sent in the commandline with the syntax `--m`.
+- `"Integer property"` is the description of the property.
+- `GET_INT_VAL` is the function which is used to get the value of the property (there are 3 options `GET_STRING_VAL`, `GET_INT_VAL`, `GET_FLOAT_VAL`, so on).
 
 The data of the property is stored in the `DATA_VARIABLE` variable.
 
